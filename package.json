@@ -1,0 +1,55 @@
+{
+  "name": "yoyo-tool",
+  "description": "视频图像处理工具",
+  "author": "yoyokity",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "main": "backendSrc/main.cjs",
+  "scripts": {
+    "gui": "vite",
+    "gui-build": "vite build",
+    "start": "npm run gui-build && electron .",
+    "start-without-gui-build": "start /b vite && electron .",
+    "app-build": "electron-builder"
+  },
+  "dependencies": {
+    "@element-plus/icons-vue": "^2.3.1",
+    "electron": "^29.3.0",
+    "element-plus": "^2.7.2",
+    "pinia": "^2.1.7",
+    "vue": "^3.4.21",
+    "ws": "^8.16.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^5.0.4",
+    "electron-builder": "^24.13.3",
+    "vite": "^5.2.8",
+    "vite-plugin-commonjs": "^0.10.1"
+  },
+  "build": {
+    "appId": "nya.gogofiman.yoyoTool",
+    "productName": "yoyoTool",
+    "copyright": "Copyright © 2022 yoyokity",
+    "win": {
+      "icon": "resources/icon.ico"
+    },
+    "extraFiles": [
+      "tools"
+    ],
+    "files": [
+      {
+        "from": "resources",
+        "to": "resources",
+        "filter": [
+          "font.ttf"
+        ]
+      },
+      "!**/*",
+      "node_modules",
+      "package.json",
+      "LICENSE",
+      "src"
+    ]
+  }
+}

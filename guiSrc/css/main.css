@@ -1,0 +1,46 @@
+@import './reset.css';
+
+:root {
+    --color-primary: #f5f5f5;
+    --color-secondary: #e3e3e3;
+    --color-secondary-light: rgb(235, 235, 235);
+    --color-accent: rgb(20, 20, 20);
+    --color-accent-hover: rgb(50, 50, 50);
+    --color-accent-active: rgb(0, 0, 0);
+}
+
+@font-face {
+    font-family: "user-font";
+    src: url("@/../resources/font.ttf");
+}
+
+body {
+    font-family: user-font, sans-serif !important;
+    font-size: 13px;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    user-select: none;
+}
+
+#app {
+    display: flex;
+    width: 100%;
+    height: 100%;
+}
+
+#log {
+    position: absolute;
+    width: 4rem;
+    bottom: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    & .title {
+        color: var(--color-primary);
+        font-weight: 700;
+        transform: scaleX(.9);
+    }
+}

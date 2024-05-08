@@ -128,6 +128,10 @@ class Pathlib {
         return new Path(this.#dataDir)
     }
 
+    get sessionDataDir () {
+        return yoyoNode.app.getPath('sessionData')
+    }
+
     /**
      * C盘的用户temp文件夹
      */

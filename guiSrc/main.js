@@ -6,11 +6,8 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import { createPinia } from 'pinia'
 
-import { Config } from './js/localStorage.js'
 import WsClient from './js/webSocket/client.js'
-
-//config
-window.config = new Config()
+import i18n from '@/js/i18n.js'
 
 //ws
 window.wsClient = new WsClient('mainWindow')
@@ -21,4 +18,5 @@ const pinia = createPinia()
 const app = createApp(App)
 app.use(pinia)
 app.use(ElementPlus)
+app.use(i18n)
 app.mount('#app')

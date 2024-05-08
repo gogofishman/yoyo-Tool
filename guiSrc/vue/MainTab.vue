@@ -3,13 +3,14 @@ import Top from '@/vue/Top.vue'
 import { CurrentTab } from '@/js/globalState.js'
 
 const currentTab = CurrentTab()
-currentTab.name = '抽取'
+currentTab.name = 'extract'
+
 </script>
 
 <template>
-    <el-tabs model-value="抽取" type="border-card" tab-position="left" class="main-tab"
+    <el-tabs model-value="extract" type="border-card" tab-position="left" class="main-tab"
              @tab-change="(name)=>{currentTab.name = name}">
-        <el-tab-pane name="抽取">
+        <el-tab-pane name="extract">
             <template #label>
                 <svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
                     <path
@@ -19,7 +20,7 @@ currentTab.name = '抽取'
             <Top></Top>
             Route
         </el-tab-pane>
-        <el-tab-pane name="封装">
+        <el-tab-pane name="merge">
             <template #label>
                 <svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
                     <path
@@ -29,7 +30,7 @@ currentTab.name = '抽取'
             <Top></Top>
             Config
         </el-tab-pane>
-        <el-tab-pane name="字幕">
+        <el-tab-pane name="subtitle">
             <template #label>
                 <svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
                     <path
@@ -39,7 +40,7 @@ currentTab.name = '抽取'
             <Top></Top>
             Role
         </el-tab-pane>
-        <el-tab-pane name="压制">
+        <el-tab-pane name="encode">
             <template #label>
                 <svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
                     <path

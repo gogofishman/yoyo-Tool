@@ -7,13 +7,15 @@ class invokeHandle {
     #onEndEvent = null
 
     /**
-     *
      * @param {function(InvokeRespondMessage)} func
      */
     onRespond (func) {
         this.#onRespondEvent = func
     }
 
+    /**
+     * @param {function(InvokeRespondMessage)} func
+     */
     onEnd (func) {
         this.#onEndEvent = func
     }

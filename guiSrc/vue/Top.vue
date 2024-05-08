@@ -6,7 +6,7 @@ const currentTab = CurrentTab()
 
 <template>
     <div class="top-container">
-        <span class="top-title">{{ currentTab.name }}</span>
+        <span class="top-title">{{ $i18n(currentTab.name) }}</span>
     </div>
 </template>
 

@@ -9,8 +9,9 @@
   "scripts": {
     "gui": "vite",
     "gui-build": "vite build",
-    "start": "npm run gui-build && electron .",
-    "start-without-gui-build": "start /b vite && electron .",
+    "start": "npm run gui-build && set DEBUG=on&& electron .",
+    "start-without-dev": "npm run gui-build && electron .",
+    "start-without-gui-build": "start /b vite && set SERVER=on&& electron .",
     "app-build": "electron-builder"
   },
   "dependencies": {

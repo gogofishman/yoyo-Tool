@@ -10,6 +10,7 @@ const Helper = {
         nvencc: new Cmd('tools/NVEncC/NVEncC64.exe'),
         convert: new Cmd('tools/ImageMagick/convert.exe'),
     },
+    /** @type {Pathlib} */
     path: null,
     /**
      * 初始化，放在入口文件最开头，

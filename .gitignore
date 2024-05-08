@@ -32,4 +32,5 @@ coverage
 tools/**/*.html
 tools/**/*.css
 tools/**/*.txt
+tools/**/*.url
 /tools/mkvtoolnix/locale

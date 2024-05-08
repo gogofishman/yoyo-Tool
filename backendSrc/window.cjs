@@ -12,11 +12,19 @@ function createWindow () {
             height: 20
         }
     })
-    mainWindow.webContents.openDevTools()
-    mainWindow.loadURL('http://localhost:5173/').catch(()=>{
-        mainWindow.loadFile('./guiSrc/dist/index.html')
-    })
 
+    if (process.env.DEBUG === 'on') {
+        mainWindow.webContents.openDevTools()
+    }
+
+    if (process.env.SERVER === 'on') {
+        console.info('electron前端连接到 http://localhost:5173/')
+        mainWindow.webContents.openDevTools()
+        mainWindow.loadURL('http://localhost:5173/')
+    } else {
+        console.info('electron前端使用 ./guiSrc/dist/index.html')
+        mainWindow.loadFile('./guiSrc/dist/index.html')
+    }
 
     yoyoNode.window = {
         mainWindow: mainWindow

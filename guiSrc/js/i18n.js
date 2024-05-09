@@ -6,12 +6,12 @@ export default {
     install: (app) => {
         const settings = Settings()
 
-        // let lang = config.get('language')
-        // if (lang) {
-        //     settings.setLanguage(lang)
-        // }
+        let lang = localStorage.getItem('language')
+        if (lang) {
+            settings.setLanguage(lang)
+        }
 
-        app.config.globalProperties.$i18n = (key) => {
+        function i18n (key) {
             let language = settings.language
             if (key in locales) {
                 if (language in locales[key]) {
@@ -23,5 +23,8 @@ export default {
                 return key
             }
         }
+
+        app.config.globalProperties.$i18n = i18n
+        window.i18n = i18n
     }
 }

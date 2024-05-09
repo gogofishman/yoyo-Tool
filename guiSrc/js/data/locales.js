@@ -14,5 +14,37 @@ export default {
     encode:{
         "en":"encode",
         "zh-cn":"压制"
+    },
+    name:{
+        "en":"name",
+        "zh-cn":"名称"
+    },
+    size:{
+        "en":"size",
+        "zh-cn":"大小"
+    },
+    chapter:{
+        "en":"chapter",
+        "zh-cn":"章节"
+    },
+    state:{
+        "en":"state",
+        "zh-cn":"状态"
+    },
+    add:{
+        "en":"add",
+        "zh-cn":"添加"
+    },
+    clear:{
+        "en":"clear",
+        "zh-cn":"清空"
+    },
+    import_file_titles:{
+        "en":"Importing Files: ",
+        "zh-cn":"正在导入文件："
+    },
+    import_file_repeat:{
+        "en":"Duplicate file import!",
+        "zh-cn":"重复导入文件！"
     }
 }

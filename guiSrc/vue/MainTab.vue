@@ -1,10 +1,10 @@
 <script setup>
 import Top from '@/vue/Top.vue'
+import VideoTable from '@/vue/VideoTable.vue'
 import { CurrentTab } from '@/js/globalState.js'
 
 const currentTab = CurrentTab()
 currentTab.name = 'extract'
-
 </script>
 
 <template>
@@ -48,7 +48,7 @@ currentTab.name = 'extract'
                 </svg>
             </template>
             <Top></Top>
-            Task
+            <VideoTable></VideoTable>
         </el-tab-pane>
     </el-tabs>
 </template>

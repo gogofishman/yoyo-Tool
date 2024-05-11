@@ -1,10 +1,12 @@
 <script setup>
-import { Settings, FileTable, FrontWindow } from '@/js/globalState.js'
+import { Settings, FileTable, FrontWindow_fileImport } from '@/js/globalState/globalState.js'
 import { ElMessage } from 'element-plus'
+import { Check, Close } from '@element-plus/icons-vue'
+import VideoInfoContainer from '@/vue/VideoTable/videoInfoContainer.vue'
 
 const settings = Settings()
 const fileTable = FileTable()
-const frontWindow = FrontWindow()
+const frontWindow = FrontWindow_fileImport()
 
 const fileExtension = {
     mp4: '#7862DA',
@@ -32,22 +34,43 @@ function selectFile () {
     })
 }
 
+function dropFile (e) {
+    e.preventDefault()
+    const data = Array.from(e.dataTransfer.files)
+        .filter(file => file.type.startsWith('video'))
+        .map(file => file.path)
+
+    if (data.length > 0) {
+        addFiles(data)
+    }
+}
+
 /**
  * @param {string[]} files
  */
 async function addFiles (files) {
     //忽略已在列表中的文件
-    files = files.filter(file => fileTable.encodeTable.findIndex(e => e.path === file) === -1)
-    if (files.length === 0) {
+    let repeat = 0
+    files = files.filter(file => {
+        if (!fileTable.encodeTable.some(e => e.path === file)) {
+            return true
+        } else {
+            repeat++
+            return false
+        }
+    })
+
+    if (repeat > 0) {
         console.log('文件重复导入')
         ElMessage({
-            message: () => {return i18n('import_file_repeat')},
+            message: () => {return repeat + i18n('import_file_repeat')},
             type: 'warning',
             plain: true,
             duration: 2000,
         })
-        return
     }
+    if (files.length === 0) return
+
     let fileList = await getInfo(files)
     fileList.forEach((file) => {
         fileTable.encodeTable_add(file)
@@ -80,7 +103,7 @@ function getInfo (files) {
 </script>
 
 <template>
-    <div class="table-container">
+    <div class="table-container" @drop="dropFile" @dragover.prevent>
         <el-config-provider :locale="settings.getLanguage_elementUi">
 
             <div class="table-container-top">
@@ -90,24 +113,29 @@ function getInfo (files) {
 
             <el-table class="video-table"
                       :data="fileTable.encodeTable"
-                      :table-layout="'auto'"
                       height="calc(100vh - 7rem)"
             >
-                <el-table-column type="selection"/>
-                <el-table-column prop="name">
+                <el-table-column type="selection" width="50"/>
+                <el-table-column type="expand" align="right" width="40">
+                    <template #default="props">
+                        <video-info-container :info="props.row"></video-info-container>
+                    </template>
+                </el-table-column>
+                <el-table-column prop="name" min-width="300">
                     <template #header>{{ $i18n('name') }}</template>
                     <template #default="scope">
-                        <div style="display: flex; align-items: center;line-height: 1.35em;">
+                        <div style="display: flex; align-items: center;line-height: 1.35em;width: 100%;overflow: hidden;">
 
                             <!--格式图标-->
-                            <el-avatar class="item-icon" :style="'background-color:'+fileExtension[scope.row.extension]"
-                            > {{ scope.row.extension }}
+                            <el-avatar class="item-icon"
+                                       :style="'background-color:'+fileExtension[scope.row.extension]">
+                                <span style="font-size: 11px">{{ scope.row.extension }}</span>
                             </el-avatar>
 
-                            <div style="user-select: text;cursor: default">
+                            <div style="width: calc(100% - 2.5em - .75em);">
                                 <span class="item-name">{{ scope.row.name }}</span>
                                 <div class="item-info">
-                                    <span style="display: block;width: 3.5em">{{ scope.row.format }}</span>
+                                    <span style="display: block;width: 3.5em">{{ scope.row.videoFormat }}</span>
                                     <span style="display: block;width: 6.5em">{{ scope.row.widthHeight }}</span>
                                     <span style="display: block">{{ scope.row.frameRate }}</span>
                                 </div>
@@ -115,16 +143,32 @@ function getInfo (files) {
                         </div>
                     </template>
                 </el-table-column>
-                <el-table-column prop="size">
+                <el-table-column prop="size" align="center" width="80">
                     <template #header>{{ $i18n('size') }}</template>
                 </el-table-column>
-                <el-table-column prop="subtitle">
+                <el-table-column prop="subtitle" align="center" width="80">
                     <template #header>{{ $i18n('subtitle') }}</template>
+                    <template #default="scope">
+                        <el-icon v-if="scope.row.subtitle">
+                            <Check/>
+                        </el-icon>
+                        <el-icon v-else>
+                            <Close/>
+                        </el-icon>
+                    </template>
                 </el-table-column>
-                <el-table-column prop="chapter">
+                <el-table-column prop="chapter" align="center" width="80">
                     <template #header>{{ $i18n('chapter') }}</template>
+                    <template #default="scope">
+                        <el-icon v-if="scope.row.chapter">
+                            <Check/>
+                        </el-icon>
+                        <el-icon v-else>
+                            <Close/>
+                        </el-icon>
+                    </template>
                 </el-table-column>
-                <el-table-column prop="state">
+                <el-table-column prop="state" align="center" width="80">
                     <template #header>{{ $i18n('state') }}</template>
                 </el-table-column>
             </el-table>
@@ -138,7 +182,9 @@ function getInfo (files) {
     --el-table-header-text-color: var(--color-text-secondary);
     --el-table-text-color: var(--color-text-secondary-light);
     --el-table-tr-bg-color: var(--color-primary);
+    --el-table-row-hover-bg-color: var(--color-secondary-light);
     --el-table-border-color: var(--color-secondary);
+    --el-table-expanded-cell-bg-color: transparent;
 }
 
 .table-container {
@@ -188,10 +234,21 @@ function getInfo (files) {
             transform: translateX(.8em)
         }
 
-        & :deep(.el-checkbox__input.is-checked) .el-checkbox__inner,& :deep(.el-checkbox__input.is-indeterminate) .el-checkbox__inner{
+        & :deep(.el-checkbox__inner){
+            background-color: var(--color-primary);
+            border-color: var(--el-color-primary-light-7);
+        }
+
+        & :deep(.el-checkbox__input.is-checked) .el-checkbox__inner, & :deep(.el-checkbox__input.is-indeterminate) .el-checkbox__inner {
             background-color: var(--el-color-primary-light-5);
             border-color: var(--el-color-primary-light-5);
         }
+
+        & :deep(.el-table__cell){
+            transition: background-color .1s ease !important;
+        }
     }
 }
+
+
 </style>

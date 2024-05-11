@@ -1,5 +1,5 @@
 <script setup>
-import { CurrentTab } from '@/js/globalState.js'
+import { CurrentTab } from '@/js/globalState/globalState.js'
 
 const currentTab = CurrentTab()
 </script>

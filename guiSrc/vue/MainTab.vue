@@ -1,15 +1,14 @@
 <script setup>
 import Top from '@/vue/Top.vue'
-import VideoTable from '@/vue/VideoTable.vue'
-import { CurrentTab } from '@/js/globalState.js'
+import VideoTable from '@/vue/VideoTable/VideoTable.vue'
+import { CurrentTab } from '@/js/globalState/globalState.js'
 
 const currentTab = CurrentTab()
 currentTab.name = 'extract'
 </script>
 
 <template>
-    <el-tabs model-value="extract" type="border-card" tab-position="left" class="main-tab"
-             @tab-change="(name)=>{currentTab.name = name}">
+    <el-tabs v-model="currentTab.name" type="border-card" tab-position="left" class="main-tab">
         <el-tab-pane name="extract">
             <template #label>
                 <svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">

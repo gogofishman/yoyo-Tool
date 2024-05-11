@@ -1,5 +1,5 @@
 import locales from '@/js/data/locales.js'
-import { Settings } from '@/js/globalState.js'
+import { Settings } from '@/js/globalState/globalState.js'
 
 
 export default {

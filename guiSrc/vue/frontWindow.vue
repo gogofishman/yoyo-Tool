@@ -1,17 +1,17 @@
 <script setup>
-import { FrontWindow } from '@/js/globalState.js'
+import { FrontWindow_fileImport } from '@/js/globalState/globalState.js'
 
-const frontWindow = FrontWindow()
+const frontWindow = FrontWindow_fileImport()
 </script>
 
 <template>
-    <div class="front-window" :aria-hidden="!frontWindow.file_import_window_show">
+    <div class="front-window" v-if="frontWindow.show">
         <el-card class="front-window-main" shadow="always">
             <span style="margin-right: 1em">{{ $i18n('import_file_titles') }}</span>
             <el-progress class="front-window-progress"
-                         :percentage="frontWindow.file_import_window_percentage"
+                         :percentage="frontWindow.percentage"
                          :stroke-width="8">
-                <span>{{ frontWindow.file_import_window_current }}/{{ frontWindow.file_import_window_total }}</span>
+                <span>{{ frontWindow.current }}/{{ frontWindow.total }}</span>
             </el-progress>
         </el-card>
     </div>
@@ -50,10 +50,6 @@ const frontWindow = FrontWindow()
 
     & .front-window-progress {
         width: 20em;
-    }
-
-    &[aria-hidden="true"] {
-        display: none;
     }
 
     & :deep(.el-progress-bar__inner){

@@ -1,6 +1,11 @@
 <script setup>
 import MainTab from '@/vue/MainTab.vue'
 import frontWindow from '@/vue/frontWindow.vue'
+import { Settings } from '@/js/globalState/globalState.js'
+
+//设置从localStorage初始化
+Settings().init()
+
 </script>
 
 <template>

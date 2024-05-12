@@ -174,5 +174,17 @@ export default {
     attachments:{
         'en': 'attachments',
         'zh-cn': '附件'
+    },
+    preset:{
+        'en': 'preset',
+        'zh-cn': '预设'
+    },
+    setting:{
+        'en': 'setting',
+        'zh-cn': '设置'
+    },
+    help:{
+        'en': 'help',
+        'zh-cn': '帮助'
     }
 }

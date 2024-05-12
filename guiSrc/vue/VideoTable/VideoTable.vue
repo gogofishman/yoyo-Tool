@@ -122,7 +122,7 @@ function getInfo (files) {
                         <video-info-container :info="props.row"></video-info-container>
                     </template>
                 </el-table-column>
-                <el-table-column prop="name" min-width="300">
+                <el-table-column prop="name" min-width="250">
                     <template #header>{{ $i18n('name') }}</template>
                     <template #default="scope">
                         <div style="display: flex; align-items: center;line-height: 1.35em;width: 100%;overflow: hidden;">
@@ -183,7 +183,6 @@ function getInfo (files) {
     --el-table-header-text-color: var(--color-text-secondary);
     --el-table-text-color: var(--color-text-secondary-light);
     --el-table-tr-bg-color: var(--color-primary);
-    --el-table-row-hover-bg-color: var(--color-secondary-light);
     --el-table-border-color: var(--color-secondary);
     --el-table-expanded-cell-bg-color: transparent;
 }

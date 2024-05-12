@@ -5,7 +5,7 @@ const currentTab = CurrentTab()
 </script>
 
 <template>
-    <div class="top-container">
+    <div class="top-container app-drag-container">
         <span class="top-title">{{ $i18n(currentTab.name) }}</span>
     </div>
 </template>
@@ -16,7 +16,6 @@ const currentTab = CurrentTab()
     width: 100%;
     height: 3rem;
     border-bottom: 1px solid var(--el-border-color);
-    -webkit-app-region: drag;
 
     & .top-title {
         font-size: 16px;

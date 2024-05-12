@@ -1,0 +1,36 @@
+:root {
+    --el-border-color: rgb(196, 196, 196);
+    --el-color-primary: rgb(20, 20, 20);
+    --el-color-primary-light-3: rgb(50, 50, 50);
+    --el-color-primary-light-5: rgb(90, 90, 90);
+    --el-color-primary-light-7: rgb(130, 130, 130);
+    --el-color-primary-light-8: rgb(180, 180, 180);
+    --el-color-primary-light-9: rgb(225, 225, 225);
+    --el-color-primary-dark-2: rgb(80, 80, 80);
+
+    /*一般用于hover*/
+    --el-fill-color: rgb(215,215,215);
+    --el-fill-color-light: rgb(235,235,235);
+    --el-fill-color-lighter: rgb(245,245,245);
+    --el-fill-color-extra-light: rgb(255,255,255);
+    --el-fill-color-dark: rgb(205,205,205);
+    --el-fill-color-darker: rgb(195,195,195);
+    --el-fill-color-blank: #ffffff;
+}
+
+#tab-setting {
+    position: absolute;
+    bottom: calc(6rem + 2.9rem);
+}
+
+#tab-help {
+    position: absolute;
+    bottom: 6rem;
+}
+
+.tab-drag-container {
+    width: 4rem;
+    height: calc(100vh - 2rem - 2.9rem * 4 - 10rem);
+    position: absolute;
+    bottom: 10rem;
+}

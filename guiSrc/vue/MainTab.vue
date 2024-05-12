@@ -4,11 +4,21 @@ import VideoTable from '@/vue/VideoTable/VideoTable.vue'
 import { CurrentTab } from '@/js/globalState/globalState.js'
 
 const currentTab = CurrentTab()
-currentTab.name = 'extract'
+currentTab.name = 'encode'
 </script>
 
 <template>
     <el-tabs v-model="currentTab.name" type="border-card" tab-position="left" class="main-tab">
+        <el-tab-pane name="encode">
+            <template #label>
+                <svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M512 0C229.256533 0 0 229.239467 0 512c0 282.760533 229.256533 512 512 512 282.7776 0 512-229.239467 512-512C1024 229.239467 794.7776 0 512 0z m219.9552 540.450133l-291.157333 168.0896a28.125867 28.125867 0 0 1-42.1888-24.354133V347.989333a28.125867 28.125867 0 0 1 42.1888-24.354133l291.157333 168.0896c18.756267 10.820267 18.756267 37.888 0 48.725333z"></path>
+                </svg>
+            </template>
+            <Top></Top>
+            <VideoTable></VideoTable>
+        </el-tab-pane>
         <el-tab-pane name="extract">
             <template #label>
                 <svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
@@ -38,16 +48,6 @@ currentTab.name = 'extract'
             </template>
             <Top></Top>
             Role
-        </el-tab-pane>
-        <el-tab-pane name="encode">
-            <template #label>
-                <svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
-                    <path
-                        d="M512 0C229.256533 0 0 229.239467 0 512c0 282.760533 229.256533 512 512 512 282.7776 0 512-229.239467 512-512C1024 229.239467 794.7776 0 512 0z m219.9552 540.450133l-291.157333 168.0896a28.125867 28.125867 0 0 1-42.1888-24.354133V347.989333a28.125867 28.125867 0 0 1 42.1888-24.354133l291.157333 168.0896c18.756267 10.820267 18.756267 37.888 0 48.725333z"></path>
-                </svg>
-            </template>
-            <Top></Top>
-            <VideoTable></VideoTable>
         </el-tab-pane>
     </el-tabs>
 </template>

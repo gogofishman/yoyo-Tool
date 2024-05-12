@@ -88,6 +88,7 @@ function getInfo (files) {
         let count = 0
         let fileList = []
 
+        frontWindow.set_file_import_window(count, files.length)
         handle.onRespond((message) => {
             count++
             frontWindow.set_file_import_window(count, files.length)
@@ -143,7 +144,7 @@ function getInfo (files) {
                         </div>
                     </template>
                 </el-table-column>
-                <el-table-column prop="size" align="center" width="80">
+                <el-table-column prop="size" align="center" width="100">
                     <template #header>{{ $i18n('size') }}</template>
                 </el-table-column>
                 <el-table-column prop="subtitle" align="center" width="80">

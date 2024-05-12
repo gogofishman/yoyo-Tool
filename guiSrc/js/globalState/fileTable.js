@@ -22,7 +22,7 @@ function getSize (size) {
 
         //gb
         size = size / 1024
-        return size.toFixed(2) + ' GB'
+        return size.toFixed(1) + ' GB'
     }
     return '0 KB'
 }

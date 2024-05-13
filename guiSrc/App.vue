@@ -1,11 +1,7 @@
 <script setup>
 import MainTab from '@/vue/MainTab.vue'
-import frontWindow from '@/vue/frontWindow.vue'
-import { Settings } from '@/js/globalState/globalState.js'
-
-//设置从localStorage初始化
-Settings().init()
-
+import Dialog from '@/vue/dialog.vue'
+import AppCloseButton from '@/vue/appCloseButton.vue'
 </script>
 
 <template>
@@ -14,7 +10,8 @@ Settings().init()
         <span class="title">YOYO</span>
         <span class="title">TOOL</span>
     </div>
-    <frontWindow></frontWindow>
+    <app-close-button></app-close-button>
+    <Dialog></Dialog>
 </template>
 
 <style scoped>

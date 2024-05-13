@@ -21,7 +21,7 @@ const activeName = 'general'
         </el-tab-pane>
         <el-tab-pane v-for="data in props.info.tracks" :label="data.label" :name="data.label">
 <!--            视频轨道-->
-            <el-scrollbar height="20rem" v-if="data.type === 'Video'" style="width: calc(100% - 5em)">
+            <el-scrollbar always="always" height="20rem" v-if="data.type === 'Video'" style="width: calc(100% - 5em)">
                 <videoInfoLine :name="$i18n('encodingFormat')" :value="data.format"></videoInfoLine>
                 <videoInfoLine :name="$i18n('encodingConfig')" :value="data.formatConfig"></videoInfoLine>
                 <videoInfoLine :name="$i18n('codecID')" :value="data.codecID"></videoInfoLine>
@@ -48,7 +48,7 @@ const activeName = 'general'
                 <videoInfoLine :name="$i18n('encodedLibrarySettings')" :value="data.encodedLibrarySettings"></videoInfoLine>
             </el-scrollbar>
 <!--            音频轨道-->
-            <el-scrollbar height="20rem" v-if="data.type === 'Audio'" style="width: calc(100% - 5em)">
+            <el-scrollbar always="always" height="20rem" v-if="data.type === 'Audio'" style="width: calc(100% - 5em)">
                 <videoInfoLine :name="$i18n('encodingFormat')" :value="data.format"></videoInfoLine>
                 <videoInfoLine :name="$i18n('codecID')" :value="data.codecID"></videoInfoLine>
 
@@ -66,7 +66,7 @@ const activeName = 'general'
                 <videoInfoLine :name="$i18n('forcedTrack')" :value="data.forced"></videoInfoLine>
             </el-scrollbar>
 <!--            字幕轨道-->
-            <el-scrollbar height="20rem" v-if="data.type === 'Text'" style="width: calc(100% - 5em)">
+            <el-scrollbar always="always" height="20rem" v-if="data.type === 'Text'" style="width: calc(100% - 5em)">
                 <videoInfoLine :name="$i18n('encodingFormat')" :value="data.format"></videoInfoLine>
                 <videoInfoLine :name="$i18n('codecID')" :value="data.codecID"></videoInfoLine>
 
@@ -77,11 +77,11 @@ const activeName = 'general'
                 <videoInfoLine :name="$i18n('forcedTrack')" :value="data.forced"></videoInfoLine>
             </el-scrollbar>
 <!--            章节-->
-            <el-scrollbar height="20rem" v-if="data.type === 'Menu'" style="width: calc(100% - 5em)">
+            <el-scrollbar always="always" height="20rem" v-if="data.type === 'Menu'" style="width: calc(100% - 5em)">
                 <videoInfoLine v-for="(value, key) in data.data" :name="key" :value="value"></videoInfoLine>
             </el-scrollbar>
 <!--            附件-->
-            <el-scrollbar height="20rem" v-if="data.type === 'Attachments'" style="width: calc(100% - 5em)">
+            <el-scrollbar always="always" height="20rem" v-if="data.type === 'Attachments'" style="width: calc(100% - 5em)">
                 <videoInfoLine v-for="(item, index) in data.data" :name="String(index+1)" :value="item"></videoInfoLine>
             </el-scrollbar>
         </el-tab-pane>

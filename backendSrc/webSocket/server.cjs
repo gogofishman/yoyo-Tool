@@ -129,9 +129,11 @@ class WsServer {
                             message = new SendMessage(message.name, message.data, message.from, message.target, message.timestamp)
                             console.log(`[ws] [send] ← [${clientPort} ${clientName}] : `, message)
 
-                            let a = this.#sendListeners.get(message.name)
-                            if (a.clientName === clientName || a.clientName === null) {
-                                a.func(message)
+                            if (this.#sendListeners.size > 0){
+                                let a = this.#sendListeners.get(message.name)
+                                if (a.clientName === undefined || a.clientName === null || a.clientName === clientName) {
+                                    a.func(message)
+                                }
                             }
                             break
                         }
@@ -141,10 +143,12 @@ class WsServer {
                             message = new InvokeMessage(message.name, message.data, message.invokeId, message.from, message.target, message.timestamp)
                             console.log(`[ws] [invoke ${message.invokeId}] ← [${clientPort} ${clientName}] : `, message)
 
-                            let a = this.#invokeListeners.get(message.name)
-                            if (a.clientName === clientName || a.clientName === null) {
-                                let handle = new InvokeClient(message.invokeId, ws, clientName)
-                                a.func(message, handle)
+                            if (this.#invokeListeners.size > 0) {
+                                let a = this.#invokeListeners.get(message.name)
+                                if (a.clientName === clientName || a.clientName === null) {
+                                    let handle = new InvokeClient(message.invokeId, ws, clientName)
+                                    a.func(message, handle)
+                                }
                             }
                             break
                         }

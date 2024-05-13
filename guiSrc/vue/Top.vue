@@ -5,8 +5,9 @@ const currentTab = CurrentTab()
 </script>
 
 <template>
-    <div class="top-container app-drag-container">
+    <div class="top-container">
         <span class="top-title">{{ $i18n(currentTab.name, true, false) }}</span>
+        <div class="app-drag-container top-container-drag"></div>
     </div>
 </template>
 
@@ -24,5 +25,11 @@ const currentTab = CurrentTab()
         font-weight: 700;
         letter-spacing: .1em;
     }
+}
+
+.top-container-drag {
+    position: absolute;
+    height: 3rem;
+    width: calc(100% - 150px);
 }
 </style>

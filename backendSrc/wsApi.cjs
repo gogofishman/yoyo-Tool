@@ -4,6 +4,27 @@ const Helper = require('./helper/helper.cjs')
 
 const ws = new WsServer()
 
+//程序关闭相关
+ws.onSend('appControl', (message) => {
+    let action = message.data
+    let window = message.from
+    switch (action) {
+        case 'close':
+            yoyoNode.app.quit()
+            break
+        case 'min':
+            yoyoNode.window[window].minimize()
+            break
+        case 'max':
+            if (yoyoNode.window[window].isMaximized()) {
+                yoyoNode.window[window].unmaximize()
+            } else {
+                yoyoNode.window[window].maximize()
+            }
+            break
+    }
+})
+
 //接收前端的获取文件列表信息请求
 ws.onInvoke('getFileInfo', (message, client) => {
     let data = message.data

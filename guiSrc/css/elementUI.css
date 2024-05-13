@@ -9,12 +9,12 @@
     --el-color-primary-dark-2: rgb(80, 80, 80);
 
     /*一般用于hover*/
-    --el-fill-color: rgb(215,215,215);
-    --el-fill-color-light: rgb(235,235,235);
-    --el-fill-color-lighter: rgb(245,245,245);
-    --el-fill-color-extra-light: rgb(255,255,255);
-    --el-fill-color-dark: rgb(205,205,205);
-    --el-fill-color-darker: rgb(195,195,195);
+    --el-fill-color: rgb(215, 215, 215);
+    --el-fill-color-light: rgb(235, 235, 235);
+    --el-fill-color-lighter: rgb(245, 245, 245);
+    --el-fill-color-extra-light: rgb(255, 255, 255);
+    --el-fill-color-dark: rgb(205, 205, 205);
+    --el-fill-color-darker: rgb(195, 195, 195);
     --el-fill-color-blank: #ffffff;
 }
 
@@ -33,4 +33,41 @@
     height: calc(100vh - 2rem - 2.9rem * 4 - 10rem);
     position: absolute;
     bottom: 10rem;
+}
+
+.el-select-dropdown__item{
+    height: 2em;
+    line-height: 2em;
+    font-size: 13px;
+}
+
+.parameter-editor-collapse {
+    --select-width: 166px;
+    --el-collapse-header-bg-color: transparent;
+    --el-collapse-content-bg-color: transparent;
+    --el-collapse-border-color: var(--color-secondary);
+
+    width: 20rem;
+    height: calc(100vh - 3rem);
+    border: none;
+
+    & .el-collapse-item__header {
+        padding: 0 1em;
+
+        & .el-collapse-item__arrow{
+            order: -1;
+            margin: 0 8px 0 1px;
+        }
+    }
+
+    & .el-collapse-item__wrap {
+        padding: 0 1em;
+    }
+
+    & .el-scrollbar {
+        --el-scrollbar-opacity: 0.6;
+        --el-scrollbar-bg-color: var(--el-color-primary-light-7);
+        --el-scrollbar-hover-opacity: 0.8;
+        --el-scrollbar-hover-bg-color: var(--el-color-primary-light-5);
+    }
 }

@@ -155,36 +155,80 @@ export default {
         'en': 'language',
         'zh-cn': '语言'
     },
-    codecID:{
+    codecID: {
         'en': 'codec ID',
         'zh-cn': '编解码器 ID'
     },
-    channels:{
+    channels: {
         'en': 'channels',
         'zh-cn': '声道数'
     },
-    channelLayout:{
+    channelLayout: {
         'en': 'channel layout',
         'zh-cn': '声道格式'
     },
-    samplingRate:{
+    samplingRate: {
         'en': 'sampling rate',
         'zh-cn': '采样率'
     },
-    attachments:{
+    attachments: {
         'en': 'attachments',
         'zh-cn': '附件'
     },
-    preset:{
+    preset: {
         'en': 'preset',
         'zh-cn': '预设'
     },
-    setting:{
+    setting: {
         'en': 'setting',
         'zh-cn': '设置'
     },
-    help:{
+    help: {
         'en': 'help',
         'zh-cn': '帮助'
+    },
+    encode_parameter: {
+        'en': 'encode',
+        'zh-cn': '编码'
+    },
+    others_parameter: {
+        'en': 'others',
+        'zh-cn': '杂项'
+    },
+    output: {
+        'en': 'output',
+        'zh-cn': '输出'
+    },
+    selcet: {
+        'en': 'select',
+        'zh-cn': '选择'
+    },
+    new: {
+        'en': 'new',
+        'zh-cn': '新建'
+    },
+    delete: {
+        'en': 'delete',
+        'zh-cn': '删除'
+    },
+    save: {
+        'en': 'save',
+        'zh-cn': '保存'
+    },
+    new_preset:{
+        'en': 'new preset',
+        'zh-cn': '新建预设'
+    },
+    new_preset_tooltip: {
+        'en': 'Create a new preset based on the current parameters',
+        'zh-cn': '根据当前参数新建一个预设'
+    },
+    save_preset_tooltip: {
+        'en': 'Save parameters to current preset',
+        'zh-cn': '保存参数到当前预设'
+    },
+    cancel:{
+        'en': 'cancel',
+        'zh-cn': '取消'
     }
 }

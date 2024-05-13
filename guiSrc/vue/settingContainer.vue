@@ -1,15 +1,12 @@
 <script setup>
 import { Settings } from '@/js/globalState/globalState.js'
+import ControlLine from '@/vue/control/controlLine.vue'
 const settings = Settings()
-settings.$subscribe((mutation, state)=>{
-    settings.save()
-})
 </script>
 
 <template>
     <div class="setting-container">
-        <div class="setting-line">
-            <span>语言</span>
+        <control-line :label="$i18n('language')" width="20rem">
             <el-select
                 v-model="settings.language"
                 placeholder="Select"
@@ -23,7 +20,7 @@ settings.$subscribe((mutation, state)=>{
                     :value="item"
                 />
             </el-select>
-        </div>
+        </control-line>
     </div>
 </template>
 
@@ -35,13 +32,5 @@ settings.$subscribe((mutation, state)=>{
     display: flex;
     justify-content: center;
     padding-top: 2rem;
-}
-
-.setting-line{
-    width: 20rem;
-    height: 2em;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
 }
 </style>

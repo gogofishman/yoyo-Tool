@@ -1,12 +1,11 @@
 <script setup>
-import { Settings, FileTable, FrontWindow_fileImport } from '@/js/globalState/globalState.js'
-import { ElMessage } from 'element-plus'
+import { Settings, FileTable, Dialog_fileImport } from '@/js/globalState/globalState.js'
 import { Check, Close } from '@element-plus/icons-vue'
 import VideoInfoContainer from '@/vue/VideoTable/videoInfoContainer.vue'
 
 const settings = Settings()
 const fileTable = FileTable()
-const frontWindow = FrontWindow_fileImport()
+const frontWindow = Dialog_fileImport()
 
 const fileExtension = {
     mp4: '#7862DA',
@@ -62,12 +61,7 @@ async function addFiles (files) {
 
     if (repeat > 0) {
         console.log('文件重复导入')
-        ElMessage({
-            message: () => {return repeat + i18n('import_file_repeat')},
-            type: 'warning',
-            plain: true,
-            duration: 2000,
-        })
+        showElMessage.warning(repeat + i18n('import_file_repeat'))
     }
     if (files.length === 0) return
 

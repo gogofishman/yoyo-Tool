@@ -8,11 +8,6 @@ function createWindow () {
         minHeight: 500,
         frame: false,
         titleBarStyle: 'hidden',
-        titleBarOverlay: {
-            color: '#f5f5f5',
-            symbolColor: '#525252',
-            height: 20
-        }
     })
 
     if (process.env.DEBUG === 'on') {

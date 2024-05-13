@@ -1,15 +1,12 @@
 <script setup>
-import { EncodeParameter } from '@/js/globalState/globalState.js'
+import { EncodeParameter, EncodePreset, Dialog_newPreset } from '@/js/globalState/globalState.js'
 import Tooltip from '@/vue/control/tooltip.vue'
 import ControlLine from '@/vue/control/controlLine.vue'
-import { Dialog_newPreset } from '@/js/globalState/globalState.js'
 
 const open = ['output', 'encode', 'others']
-const encodePreset = EncodeParameter()
-encodePreset.$subscribe((mutation, state)=>{
-    encodePreset.selectPreset(state.currentPresetName)
-})
-
+const encodeParameter = EncodeParameter()
+const encodePreset = EncodePreset()
+encodePreset.selectPreset()
 
 const dialogNewPreset = Dialog_newPreset()
 </script>
@@ -18,10 +15,12 @@ const dialogNewPreset = Dialog_newPreset()
 
     <el-collapse class="parameter-editor-collapse" v-model="open">
         <el-scrollbar always="always">
+            <!--            预设-->
             <el-collapse-item :title="$i18n('preset',true,true)" name="preset">
 
                 <control-line :label="$i18n('selcet')">
-                    <el-select v-model="encodePreset.currentPresetName" size="small" style="width: var(--select-width)">
+                    <el-select v-model="encodePreset.currentPresetName" size="small" style="width: var(--select-width)"
+                    @change="encodePreset.selectPreset()">
                         <el-option v-for="item in encodePreset.presetList" :key="item" :label="item" :value="item"/>
                     </el-select>
                 </control-line>
@@ -34,7 +33,7 @@ const dialogNewPreset = Dialog_newPreset()
                     </tooltip>
                     <el-button type="primary" size="small" plain
                                :disabled="encodePreset.currentPresetName === 'default'"
-                    @click="encodePreset.deletePreset()">
+                               @click="encodePreset.deletePreset()">
                         {{ $i18n('delete') }}
                     </el-button>
                     <tooltip :text="$i18n('save_preset_tooltip')">
@@ -45,15 +44,12 @@ const dialogNewPreset = Dialog_newPreset()
                 </control-line>
 
             </el-collapse-item>
+
+            <!--            输出-->
             <el-collapse-item :title="$i18n('output',true,true)" name="output">
-                <div>
-                    Operation feedback: enable the users to clearly perceive their
-                    operations by style updates and interactive effects;
-                </div>
-                <div>
-                    Visual feedback: reflect current state by updating or rearranging
-                    elements of the page.
-                </div>
+                <control-line :label="$i18n('save_in_the_source_folder')">
+                    <el-switch v-model="encodeParameter.output_save_in_the_source_folder"></el-switch>
+                </control-line>
             </el-collapse-item>
             <el-collapse-item :title="$i18n('encode_parameter',true,true)" name="encode">
                 <div>

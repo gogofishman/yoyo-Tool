@@ -230,5 +230,9 @@ export default {
     cancel:{
         'en': 'cancel',
         'zh-cn': '取消'
+    },
+    save_in_the_source_folder:{
+        'en': 'save in the source folder',
+        'zh-cn': '保存在原文件夹'
     }
 }

@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { EncodeParameter } from '@/js/globalState/globalState.js'
+import { EncodePreset } from '@/js/globalState/globalState.js'
 
 export const dialog_fileImport = defineStore('frontWindow_fileImport', {
     state: () => ({
@@ -34,10 +34,10 @@ export const dialog_newPreset = defineStore('frontWindow_newPreset', {
     }),
     actions: {
         open () {
-            const encodeParameter = EncodeParameter()
+            const encodePreset = EncodePreset()
             let count = 1
             let defaultName = i18n('preset') + ' ' + count
-            let presetList = encodeParameter.presetList
+            let presetList = encodePreset.presetList
 
             while (presetList.includes(defaultName)) {
                 count++
@@ -55,8 +55,8 @@ export const dialog_newPreset = defineStore('frontWindow_newPreset', {
             if (this.presetName === '') {
                 this.presetName = this.defaultName
             }
-            const encodeParameter = EncodeParameter()
-            encodeParameter.addPreset(this.presetName)
+            const encodePreset = EncodePreset()
+            encodePreset.addPreset(this.presetName)
             this.close()
         }
     }

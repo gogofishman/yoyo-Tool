@@ -50,10 +50,9 @@ export const encodeParameter = defineStore('encodeParameter', {
         },
         deletePreset () {
             const name = this.currentPresetName
+            const index = this.presetList.indexOf(name)
+            this.currentPresetName = this.presetList[index - 1]
             delete this.preset[name]
-            if (this.currentPresetName === name) {
-                this.currentPresetName = 'default'
-            }
         }
     },
     persist:true,

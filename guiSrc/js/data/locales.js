@@ -232,7 +232,35 @@ export default {
         'zh-cn': '取消'
     },
     save_in_the_source_folder:{
-        'en': 'save in the source folder',
+        'en': 'source folder',
         'zh-cn': '保存在原文件夹'
-    }
+    },
+    overwrite_source_file:{
+        'en': 'overwrite',
+        'zh-cn': '覆盖原文件'
+    },
+    output_folder:{
+        'en': 'output folder',
+        'zh-cn': '输出文件夹'
+    },
+    output_suffix:{
+        'en': 'file suffix',
+        'zh-cn': '文件后缀'
+    },
+    file_format:{
+        'en': 'file format',
+        'zh-cn': '文件格式'
+    },
+    codec:{
+        'en': 'codec',
+        'zh-cn': '编码器'
+    },
+    codec_mode:{
+        'en': 'codec mode',
+        'zh-cn': '编码模式'
+    },
+    codec_mode_tooltip:{
+        'en': 'CFR: fixed quality (qvbr)<br>&emsp;&emsp;&ensp;(0-51, 0 = auto)<br>VBR: variable bitrate',
+        'zh-cn': 'CFR：固定质量 (qvbr)<br>&emsp;&emsp;&emsp;(0-51, 0 = 自动)<br>VBR：动态码率'
+    },
 }

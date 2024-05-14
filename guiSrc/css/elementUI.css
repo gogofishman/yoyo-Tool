@@ -52,16 +52,16 @@
     border: none;
 
     & .el-collapse-item__header {
-        padding: 0 1em;
+        padding: 0 8px;
 
         & .el-collapse-item__arrow{
             order: -1;
-            margin: 0 8px 0 1px;
+            margin: 0 5px 0 1px;
         }
     }
 
     & .el-collapse-item__wrap {
-        padding: 0 1em;
+        padding: 0 26px;
     }
 
     & .el-scrollbar {

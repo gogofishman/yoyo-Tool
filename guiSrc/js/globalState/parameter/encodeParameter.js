@@ -1,14 +1,37 @@
 import { defineStore } from 'pinia'
 
-const data = {
+const parameter = {
     output_save_in_the_source_folder: true,
-    output_overwrite_source_file: true,
+    output_overwrite_source_file: false,
     output_folder: '',
     output_suffix: '_encoded',
+    file_format: 'mp4',
+    codec: 'h264 (nvencc)',
+    codec_mode: 'cqp'
 }
 
+const fileFormat = {
+    mkv: ['h264 (nvencc)', 'hevc (nvencc)', 'av1 (nvencc)', 'raw'],
+    mp4: ['h264 (nvencc)', 'hevc (nvencc)', 'av1 (nvencc)', 'raw'],
+    mov: ['h264 (nvencc)', 'hevc (nvencc)', 'av1 (nvencc)', 'raw'],
+    webm: ['av1 (nvencc)'],
+}
+
+const codecMode = ['CFR','VBR']
+
 export const EncodeParameter = defineStore('encodeParameter', {
-    state: () => (data),
+    state: () => (parameter),
+    getters: {
+        fileFormatList: () => Object.keys(fileFormat),
+        codecList: (state) => fileFormat[state.file_format],
+        codecModeList: () => codecMode
+    },
+    actions: {
+        onchangeFileFormat () {
+            if (!this.codecList.includes(this.codec))
+                this.codec = this.codecList[0]
+        }
+    },
     persist: true,
 })
 
@@ -16,7 +39,7 @@ export const EncodePreset = defineStore('encodePreset', {
     state: () => ({
         currentPresetName: 'default',
         preset: {
-            default: { ...data }
+            default: { ...parameter }
         },
         ty: 'preset',
     }),

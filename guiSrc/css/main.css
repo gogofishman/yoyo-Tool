@@ -35,6 +35,10 @@ button {
     font-size: var(--font-size) !important;
 }
 
+input{
+    font-family: user-font, sans-serif !important;
+}
+
 #app {
     display: flex;
     width: 100vw;

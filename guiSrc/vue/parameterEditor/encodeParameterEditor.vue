@@ -3,7 +3,7 @@ import { EncodeParameter, EncodePreset, Dialog_newPreset, Settings } from '@/js/
 import Tooltip from '@/vue/control/tooltip.vue'
 import ControlLine from '@/vue/control/controlLine.vue'
 
-const open = ['output', 'encode', 'others']
+const open = ['output', 'video_encode', 'audio_encode', 'others']
 const setting = Settings()
 const encodeParameter = EncodeParameter()
 const encodePreset = EncodePreset()
@@ -69,7 +69,9 @@ const dialogNewPreset = Dialog_newPreset()
                     <el-input v-model="encodeParameter.output_suffix" size="small"></el-input>
                 </control-line>
             </el-collapse-item>
-            <el-collapse-item :title="$i18n('encode_parameter',true,true)" name="encode">
+
+            <!--            视频编码-->
+            <el-collapse-item :title="$i18n('video_encode',true,true)" name="video_encode">
                 <!--                文件格式-->
                 <control-line :label="$i18n('file_format')">
                     <el-select v-model="encodeParameter.file_format" size="small" style="width: var(--select-width)"
@@ -81,37 +83,166 @@ const dialogNewPreset = Dialog_newPreset()
                 <!--                编码格式-->
                 <control-line :label="$i18n('codec')">
                     <el-select v-model="encodeParameter.codec" size="small" style="width: var(--select-width)">
-                        <el-option v-for="item in encodeParameter.codecList" :key="item" :label="item" :value="item"/>
+                        <el-option v-for="item in encodeParameter.codecList" :key="item" :label="$i18n(item)"
+                                   :value="item"/>
                     </el-select>
                 </control-line>
-                <!--                编码模式-->
-                <control-line :label="$i18n('codec_mode')" :tooltip="$i18n('codec_mode_tooltip')">
-                    <el-radio-group v-model="encodeParameter.codec_mode" size="small" style="width: 100%">
-                        <el-radio-button v-for="item in encodeParameter.codecModeList" :label="item" :value="item"/>
+
+
+                <!--                位深度-->
+                <control-line :label="$i18n('depth')">
+                    <el-radio-group v-model="encodeParameter.depth" size="small" style="width: 100%">
+                        <el-radio-button v-for="item in encodeParameter.depthList" :label="item" :value="item"/>
                     </el-radio-group>
                 </control-line>
+                <!-- 质量-->
+                <control-line :label="$i18n('quality')">
+                    <el-input-number
+                        v-model="encodeParameter.quality"
+                        :min="0"
+                        :max="51"
+                        size="small"
+                        :precision="1"
+                    />
+                </control-line>
+
+                <!--高级-->
+                <control-line :label="$i18n('advanced')">
+                    <el-switch v-model="encodeParameter.More"></el-switch>
+                </control-line>
+
+                <control-line v-if="encodeParameter.More" label="lookahead" :tooltip="$i18n('lookahead_tooltip')">
+                    <el-input-number
+                        v-model="encodeParameter.lookahead"
+                        :min="0"
+                        :max="32"
+                        size="small"
+                    />
+                </control-line>
+                <control-line v-if="encodeParameter.More" label="aq" :tooltip="$i18n('aq_tooltip')">
+                    <el-input-number
+                        v-model="encodeParameter.aq"
+                        :min="0"
+                        :max="15"
+                        size="small"
+                    />
+                </control-line>
+                <control-line v-if="encodeParameter.More" label="gop" :tooltip="$i18n('gop_tooltip')">
+                    <el-input-number
+                        v-model="encodeParameter.gop"
+                        :min="-1"
+                        size="small"
+                    />
+                </control-line>
+                <control-line v-if="encodeParameter.More" :label="$i18n('color_space')">
+                    <el-radio-group v-model="encodeParameter.color_space" size="small" style="width: 100%">
+                        <el-radio-button v-for="item in encodeParameter.colorSpaceList" :label="item" :value="item"/>
+                    </el-radio-group>
+                </control-line>
+                <control-line v-if="encodeParameter.More" :label="$i18n('lossless')">
+                    <el-switch v-model="encodeParameter.lossless"></el-switch>
+                </control-line>
+                <control-line v-if="encodeParameter.More" label="vfr" :tooltip="$i18n('vfr_tooltip')">
+                    <el-switch v-model="encodeParameter.vfr"></el-switch>
+                </control-line>
+
             </el-collapse-item>
+
+            <!--            音频编码-->
+            <el-collapse-item :title="$i18n('audio_encode',true,true)" name="audio_encode">
+                <!--                编码格式-->
+                <control-line :label="$i18n('codec')">
+                    <el-select v-model="encodeParameter.audio_codec" size="small" style="width: var(--select-width)">
+                        <el-option v-for="item in encodeParameter.audioCodecList" :key="item" :label="$i18n(item)"
+                                   :value="item"/>
+                    </el-select>
+                </control-line>
+                <!--                音频比特率-->
+                <control-line :label="$i18n('bitrate')+' /kbps'">
+                    <el-autocomplete
+                        v-model="encodeParameter.audio_bitrate"
+                        :fetch-suggestions="encodeParameter.audioBitrateFunc"
+                        @change="encodeParameter.onchangeAudioBitrate()"
+                    />
+                </control-line>
+                <!--                采样率-->
+                <control-line :label="$i18n('samplerate')+' /Hz'">
+                    <el-autocomplete
+                        v-model="encodeParameter.audio_samplerate"
+                        :fetch-suggestions="encodeParameter.audioSamplerateFunc"
+                        @change="encodeParameter.onchangeAudioSamplerate()"
+                    />
+                </control-line>
+                <!--                声道-->
+                <control-line :label="$i18n('audio_channel')">
+                    <el-select v-model="encodeParameter.audio_channel" size="small" style="width: var(--select-width)">
+                        <el-option v-for="item in encodeParameter.audioChannelList" :key="item" :label="$i18n(item)"
+                                   :value="item"/>
+                    </el-select>
+                </control-line>
+            </el-collapse-item>
+
+            <!--            杂项-->
             <el-collapse-item :title="$i18n('others_parameter',true,true)" name="others">
-                <div>
-                    Decision making: giving advices about operations is acceptable, but do
-                    not make decisions for the users;
-                </div>
-                <div>
-                    Controlled consequences: users should be granted the freedom to
-                    operate, including canceling, aborting or terminating current
-                    operation.
-                </div>
+                <!--                修改分辨率-->
+                <control-line :label="$i18n('change_resolution')">
+                    <el-switch v-model="encodeParameter.change_resolution"></el-switch>
+                </control-line>
+                <!--分辨率-->
+                <control-line :label="$i18n('resolution')" v-if="encodeParameter.change_resolution">
+                    <el-autocomplete
+                        v-model="encodeParameter.resolution"
+                        :fetch-suggestions="encodeParameter.resolutionFunc"
+                        @change="encodeParameter.onchangeResolution()"
+                    />
+                </control-line>
+                <!--                缩放算法-->
+                <control-line :label="$i18n('scale_algorithm')" v-if="encodeParameter.change_resolution">
+                    <el-select v-model="encodeParameter.scale_mode" size="small" style="width: var(--select-width)">
+                        <el-option v-for="item in encodeParameter.scaleModeList" :key="item" :label="item"
+                                   :value="item"/>
+                    </el-select>
+                </control-line>
+                <!--                像素比-->
+                <control-line label="SAR" :tooltip="$i18n('sar_tooltip')" v-if="encodeParameter.change_resolution">
+                    <el-autocomplete
+                        v-model="encodeParameter.sar"
+                        :fetch-suggestions="encodeParameter.sarFunc"
+                        @change="encodeParameter.onchangeSar()"
+                    />
+                </control-line>
+                <!--                从输入文件保留章节信息。-->
+                <control-line :label="$i18n('chapter_copy')">
+                    <el-switch v-model="encodeParameter.chapter_copy"></el-switch>
+                </control-line>
+                <!--                从输入文件保留章节信息。-->
+                <control-line :label="$i18n('key_on_chapter')" :tooltip="$i18n('key_on_chapter_tooltip')"
+                              v-if="encodeParameter.chapter_copy">
+                    <el-switch v-model="encodeParameter.key_on_chapter"></el-switch>
+                </control-line>
+                <!--                字幕相关-->
+                <control-line :label="$i18n('encode_sub')">
+                    <el-switch v-model="encodeParameter.encode_sub"></el-switch>
+                </control-line>
+                <control-line :label="$i18n('encode_sub_mode')" :tooltip="$i18n('encode_sub_mode_tooltip')"
+                              v-if="encodeParameter.encode_sub">
+                    <el-select v-model="encodeParameter.encode_sub_mode" size="small"
+                               style="width: var(--select-width)">
+                        <el-option v-for="item in encodeParameter.encodeSubModeList" :key="item" :label="$i18n(item)"
+                                   :value="item"/>
+                    </el-select>
+                </control-line>
+                <!--                编辑参数-->
+                <control-line >
+                    <el-button type="primary" size="small" plain @click="">
+                        {{ $i18n('edit_parameters') }}
+                    </el-button>
+                </control-line>
             </el-collapse-item>
+
+            <!--            VS-->
             <el-collapse-item title="vapoursynth" name="vapoursynth">
-                <div>
-                    Decision making: giving advices about operations is acceptable, but do
-                    not make decisions for the users;
-                </div>
-                <div>
-                    Controlled consequences: users should be granted the freedom to
-                    operate, including canceling, aborting or terminating current
-                    operation.
-                </div>
+
             </el-collapse-item>
         </el-scrollbar>
     </el-collapse>

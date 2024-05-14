@@ -187,9 +187,13 @@ export default {
         'en': 'help',
         'zh-cn': '帮助'
     },
-    encode_parameter: {
-        'en': 'encode',
-        'zh-cn': '编码'
+    video_encode: {
+        'en': 'video encode',
+        'zh-cn': '视频编码'
+    },
+    audio_encode: {
+        'en': 'audio encode',
+        'zh-cn': '音频编码'
     },
     others_parameter: {
         'en': 'others',
@@ -233,7 +237,7 @@ export default {
     },
     save_in_the_source_folder:{
         'en': 'source folder',
-        'zh-cn': '保存在原文件夹'
+        'zh-cn': '保存在源文件夹'
     },
     overwrite_source_file:{
         'en': 'overwrite',
@@ -255,12 +259,112 @@ export default {
         'en': 'codec',
         'zh-cn': '编码器'
     },
-    codec_mode:{
-        'en': 'codec mode',
-        'zh-cn': '编码模式'
+    quality:{
+        'en': 'quality',
+        'zh-cn': '质量'
     },
-    codec_mode_tooltip:{
-        'en': 'CFR: fixed quality (qvbr)<br>&emsp;&emsp;&ensp;(0-51, 0 = auto)<br>VBR: variable bitrate',
-        'zh-cn': 'CFR：固定质量 (qvbr)<br>&emsp;&emsp;&emsp;(0-51, 0 = 自动)<br>VBR：动态码率'
+    depth:{
+        'en': 'bit depth',
+        'zh-cn': '位深度'
     },
+    advanced:{
+        'en': 'advanced',
+        'zh-cn': '高级'
+    },
+    lookahead_tooltip:{
+        'en': 'Use lookahead and specify the number of frames to target (0 - 32) <br>This is effective for improving picture quality and allows for adaptive insertion of I-frames and B-frames.',
+        'zh-cn': '使用 lookahead 并指定其目标范围的帧数。 (0 - 32)<br>对于提高画面质量很有效，允许自适应插入 I 帧和 B帧'
+    },
+    aq_tooltip:{
+        'en': 'Adaptive Quantization (1-15 for increasing enhancement, 0 for automatic)',
+        'zh-cn': '自适应量化 （1-15依次增强，0为自动）'
+    },
+    gop_tooltip:{
+        'en': 'Keyframe interval, unit (frames). <br>-1 for automatic.',
+        'zh-cn': '关键帧长度，单位(帧)。<br>-1为自动'
+    },
+    vfr_tooltip:{
+        'en': 'Variable Frame Rate (VFR) mode <br>By removing consecutive duplicate frames, create VFR videos, which helps to improve encoding speed and compression ratio',
+        'zh-cn': '动态帧率模式<br>通过删除连续的重复帧，制作VFR视频，这有助于提高编码速度和压缩率'
+    },
+    color_space:{
+        'en': 'color space',
+        'zh-cn': '色彩空间'
+    },
+    lossless:{
+        'en': 'lossless',
+        'zh-cn': '无损'
+    },
+    copy:{
+        'en': 'copy',
+        'zh-cn': '复制'
+    },
+    none:{
+        'en': 'none',
+        'zh-cn': '无'
+    },
+    bitrate:{
+        'en': 'bitrate',
+        'zh-cn': '比特率'
+    },
+    samplerate:{
+        'en': 'samplerate',
+        'zh-cn': '采样率'
+    },
+    audio_channel:{
+        'en': 'audio channel',
+        'zh-cn': '声道'
+    },
+    change_resolution:{
+        'en': 'change resolution',
+        'zh-cn': '更改分辨率'
+    },
+    resolution:{
+        'en': 'resolution',
+        'zh-cn': '分辨率'
+    },
+    scale_algorithm:{
+        'en': 'scale algorithm',
+        'zh-cn': '缩放算法'
+    },
+    sar_tooltip:{
+        'en': 'Pixel Aspect Ratio',
+        'zh-cn': '像素长宽比'
+    },
+    chapter_copy:{
+        'en': 'copy chapter',
+        'zh-cn': '保留章节'
+    },
+    key_on_chapter:{
+        'en': 'key on chapter',
+        'zh-cn': '章节关键帧'
+    },
+    key_on_chapter_tooltip:{
+        'en': 'Set keyframes at chapter boundaries',
+        'zh-cn': '在章节分割处设置关键帧'
+    },
+    encode_sub:{
+        'en': 'embedded subtitles',
+        'zh-cn': '嵌入字幕'
+    },
+    encode_sub_mode:{
+        'en': 'subtitle source',
+        'zh-cn': '字幕来源'
+    },
+    encode_sub_mode_tooltip:{
+        'en': 'In the same directory: Look for subtitle files with the exact same name as the video file, with the extensions .ass or .srt.<br>In the video file: Use the first subtitle track found within the video file (if available)',
+        'zh-cn': '在同一目录：在视频文件的目录中寻找完全同名的ass或srt字幕文件<br>在视频文件中：使用视频文件内的第一条字幕轨道（如果有的话）'
+    },
+    inTheSameDirectory:{
+        'en': 'in the same directory',
+        'zh-cn': '在同一目录'
+    },
+    inVideoFile:{
+        'en': 'in video file',
+        'zh-cn': '在视频文件中'
+    },
+    edit_parameters:{
+        'en': 'edit parameters',
+        'zh-cn': '编辑参数'
+    }
 }

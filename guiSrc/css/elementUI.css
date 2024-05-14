@@ -35,7 +35,7 @@
     bottom: 10rem;
 }
 
-.el-select-dropdown__item{
+.el-select-dropdown__item, .el-autocomplete-suggestion li {
     height: 2em;
     line-height: 2em;
     font-size: 13px;
@@ -54,7 +54,7 @@
     & .el-collapse-item__header {
         padding: 0 8px;
 
-        & .el-collapse-item__arrow{
+        & .el-collapse-item__arrow {
             order: -1;
             margin: 0 5px 0 1px;
         }
@@ -70,4 +70,8 @@
         --el-scrollbar-hover-opacity: 0.8;
         --el-scrollbar-hover-bg-color: var(--el-color-primary-light-5);
     }
+}
+
+.el-switch__core {
+    min-width: 35px;
 }

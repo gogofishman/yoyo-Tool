@@ -117,6 +117,7 @@ const props = defineProps({
         & :deep(.el-input__wrapper) {
             height: var(--control-height);
             box-sizing: border-box;
+            padding: 0 8px;
         }
 
         & :deep(.el-input__inner) {
@@ -131,11 +132,19 @@ const props = defineProps({
             flex: 1;
         }
 
-        & :deep(span) {
+        & :deep(.el-radio-button__inner) {
             height: var(--control-height);
             line-height: var(--control-height);
             padding: 0;
             width: 100%;
+        }
+
+        & :deep(.el-input-number){
+            width: 100%;
+        }
+
+        & :deep(.el-input__inner){
+            font-size: var(--control-text-size);
         }
     }
 

@@ -16,6 +16,7 @@
     --color-text-secondary-light: rgb(140, 140, 140);
 
     --font-size: 13px;
+    --parameter-container-width: 22rem;
 }
 
 @font-face {

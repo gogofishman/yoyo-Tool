@@ -4,7 +4,7 @@ function createWindow () {
     const mainWindow = new BrowserWindow({
         width: 1090,
         height: 670,
-        minWidth: 1067,
+        minWidth: 1100,
         minHeight: 500,
         frame: false,
         titleBarStyle: 'hidden',

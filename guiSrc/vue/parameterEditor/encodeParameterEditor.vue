@@ -192,7 +192,7 @@ const dialogNewPreset = Dialog_newPreset()
             <!--            杂项-->
             <el-collapse-item :title="$i18n('others_parameter',true,true)" name="others">
                 <!--                修改分辨率-->
-                <control-line :label="$i18n('change_resolution')">
+                <control-line :label="$i18n('change_resolution')" right-width="5em">
                     <el-switch v-model="encodeParameter.change_resolution"></el-switch>
                 </control-line>
                 <!--分辨率-->
@@ -228,7 +228,7 @@ const dialogNewPreset = Dialog_newPreset()
                     <el-switch v-model="encodeParameter.key_on_chapter"></el-switch>
                 </control-line>
                 <!--                字幕相关-->
-                <control-line :label="$i18n('encode_sub')">
+                <control-line :label="$i18n('encode_sub')" right-width="5em">
                     <el-switch v-model="encodeParameter.encode_sub"></el-switch>
                 </control-line>
                 <control-line :label="$i18n('encode_sub_mode')" :tooltip="$i18n('encode_sub_mode_tooltip')"

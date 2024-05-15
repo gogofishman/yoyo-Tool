@@ -182,7 +182,7 @@ function getInfo (files) {
 }
 
 .table-container {
-    width: calc(100% - 20rem);
+    width: calc(100% - var(--parameter-container-width));
     border-right: 1px solid var(--el-border-color);
 
     & .table-container-top {

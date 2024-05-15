@@ -47,7 +47,7 @@
     --el-collapse-content-bg-color: transparent;
     --el-collapse-border-color: var(--color-secondary);
 
-    width: 20rem;
+    width: var(--parameter-container-width);
     height: calc(100vh - 3rem);
     border: none;
 

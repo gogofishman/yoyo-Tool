@@ -1,9 +1,16 @@
 <script setup>
-import { EncodeParameter, EncodePreset, Dialog_newPreset, Settings } from '@/js/globalState/globalState.js'
+import {
+    EncodeParameter,
+    EncodePreset,
+    Dialog_newPreset,
+    Settings,
+    Dialog_bashEditor
+} from '@/js/globalState/globalState.js'
 import Tooltip from '@/vue/control/tooltip.vue'
 import ControlLine from '@/vue/control/controlLine.vue'
 
 const open = ['output', 'video_encode', 'audio_encode', 'others']
+const dialogBashEditor = Dialog_bashEditor()
 const setting = Settings()
 const encodeParameter = EncodeParameter()
 const encodePreset = EncodePreset()
@@ -233,15 +240,17 @@ const dialogNewPreset = Dialog_newPreset()
                     </el-select>
                 </control-line>
                 <!--                编辑参数-->
-                <control-line >
-                    <el-button type="primary" size="small" plain @click="">
+                <control-line>
+                    <el-button type="primary" size="small" plain
+                               @click="dialogBashEditor.open(encodeParameter.bash.join('\n'),
+                               (text)=>encodeParameter.bash=text.split('\n'))">
                         {{ $i18n('edit_parameters') }}
                     </el-button>
                 </control-line>
             </el-collapse-item>
 
             <!--            VS-->
-            <el-collapse-item title="vapoursynth" name="vapoursynth">
+            <el-collapse-item title="VapourSynth" name="vapoursynth">
 
             </el-collapse-item>
         </el-scrollbar>

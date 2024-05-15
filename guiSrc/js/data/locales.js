@@ -366,5 +366,9 @@ export default {
     edit_parameters:{
         'en': 'edit parameters',
         'zh-cn': '编辑参数'
+    },
+    bash_editor_info:{
+        'en': 'One parameter per line',
+        'zh-cn': '一行一个参数'
     }
 }

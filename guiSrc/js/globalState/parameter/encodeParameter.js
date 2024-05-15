@@ -11,7 +11,7 @@ const parameter = {
     depth: 10,
     lookahead: 12,
     aq: 0,
-    gop:-1,
+    gop: -1,
     More: false,
     color_space: 'yuv420',
     lossless: false,
@@ -24,10 +24,11 @@ const parameter = {
     resolution: '1920x1080',
     scale_mode: 'spline36',
     sar: '1:1',
-    chapter_copy:true,
-    key_on_chapter:true,
-    encode_sub:false,
-    encode_sub_mode:'inTheSameDirectory'
+    chapter_copy: true,
+    key_on_chapter: true,
+    encode_sub: false,
+    encode_sub_mode: 'inTheSameDirectory',
+    bash: [],
 }
 
 const fileFormat = {
@@ -42,7 +43,7 @@ const colorSpace = ['yuv420', 'yuv444']
 const audioCodec = ['aac', 'mp3']
 const audioChannel = [2, 5.1, 7.1, 'copy']
 const scaleMode = ['bicubic', 'spline36', 'lanczos']
-const encodeSubMode= ['inTheSameDirectory','inVideoFile']
+const encodeSubMode = ['inTheSameDirectory', 'inVideoFile']
 
 export const EncodeParameter = defineStore('encodeParameter', {
     state: () => (parameter),

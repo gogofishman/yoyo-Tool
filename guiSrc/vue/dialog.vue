@@ -1,8 +1,10 @@
 <script setup>
-import { Dialog_fileImport, Dialog_newPreset } from '@/js/globalState/globalState.js'
+import { Dialog_fileImport, Dialog_newPreset, Dialog_bashEditor } from '@/js/globalState/globalState.js'
+import textEditor from '@/vue/control/textEditor.vue'
 
 const dialogFileImport = Dialog_fileImport()
 const dialogNewPreset = Dialog_newPreset()
+const dialogBashEditor = Dialog_bashEditor()
 </script>
 
 <template>
@@ -41,15 +43,47 @@ const dialogNewPreset = Dialog_newPreset()
                style="border-radius: 6px;">
         <template #footer>
             <div class="dialog-footer">
-                <el-button @click="dialogNewPreset.close()">{{ $i18n('cancel',true) }}</el-button>
-                <el-button @click="dialogNewPreset.save()" type="primary" plain>{{ $i18n('save',true) }}</el-button>
+                <el-button @click="dialogNewPreset.close()">{{ $i18n('cancel', true) }}</el-button>
+                <el-button @click="dialogNewPreset.save()" type="primary" plain>{{ $i18n('save', true) }}</el-button>
             </div>
         </template>
         <el-input v-model="dialogNewPreset.presetName" :placeholder="dialogNewPreset.defaultName"></el-input>
     </el-dialog>
+
+
+    <!--    bash代码编辑器-->
+    <el-dialog v-model="dialogBashEditor.show"
+               class="hljs text-editor-dialog"
+               :show-close="false"
+               :close-on-click-modal="false"
+               :close-on-press-escape="false"
+               style="border-radius: 6px;">
+        <template #footer>
+            <div class="dialog-footer">
+                <span class="info">{{$i18n('bash_editor_info')}}</span>
+                <div>
+                    <el-button @click="dialogBashEditor.close()" type="info" plain>{{ $i18n('cancel', true) }}</el-button>
+                    <el-button @click="dialogBashEditor.save()" type="info" plain>{{ $i18n('save', true) }}</el-button>
+                </div>
+            </div>
+        </template>
+        <text-editor></text-editor>
+    </el-dialog>
+
 </template>
 
 <style scoped>
+.dialog-footer{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    & .info{
+        font-family: user-font, sans-serif !important;
+        color: rgb(207, 45,113);
+    }
+}
+
 div:deep(.el-progress-bar__inner) {
     transition: width .2s ease;
 }

@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import { EncodePreset } from '@/js/globalState/globalState.js'
 
-export const dialog_fileImport = defineStore('frontWindow_fileImport', {
+export const Dialog_fileImport = defineStore('frontWindow_fileImport', {
     state: () => ({
         show: false,
         current: 0,
@@ -26,7 +26,7 @@ export const dialog_fileImport = defineStore('frontWindow_fileImport', {
     }
 })
 
-export const dialog_newPreset = defineStore('frontWindow_newPreset', {
+export const Dialog_newPreset = defineStore('frontWindow_newPreset', {
     state: () => ({
         show: false,
         presetName: '',
@@ -58,6 +58,28 @@ export const dialog_newPreset = defineStore('frontWindow_newPreset', {
             const encodePreset = EncodePreset()
             encodePreset.addPreset(this.presetName)
             this.close()
+        }
+    }
+})
+
+export const Dialog_bashEditor = defineStore('dialog_textEditor', {
+    state: () => ({
+        show: false,
+        text: '',
+        func: null
+    }),
+    actions: {
+        open (text, saveFunc) {
+            this.text = text
+            this.show = true
+            this.func = saveFunc
+        },
+        close () {
+            this.show = false
+        },
+        save () {
+            this.close()
+            this.func(this.text)
         }
     }
 })

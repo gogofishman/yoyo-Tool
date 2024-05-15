@@ -1,5 +1,6 @@
 @import './reset.css';
 @import 'elementUI.css';
+@import 'highlight.js/styles/androidstudio.css';
 
 
 :root {
@@ -20,6 +21,11 @@
 @font-face {
     font-family: "user-font";
     src: url("@/../resources/font.ttf");
+}
+
+@font-face {
+    font-family: "consolas";
+    src: url("@/../resources/consolas.ttf");
 }
 
 body {

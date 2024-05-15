@@ -75,3 +75,27 @@
 .el-switch__core {
     min-width: 35px;
 }
+
+.text-editor-dialog{
+    width: 85vw;
+    height: 80vh;
+    margin: 10vh auto;
+    display: flex;
+    flex-direction: column;
+    padding: 25px;
+
+    & header{
+        display: none;
+    }
+
+    & .el-dialog__body::after{
+        content: ' ';
+        display: block;
+        width: 6px;
+        height: 6px;
+        background-color: rgb(40,43,46);
+        position: absolute;
+        right: 25px;
+        bottom: 61px;
+    }
+}

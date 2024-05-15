@@ -7,8 +7,16 @@ import { Dialog_bashEditor } from '@/js/globalState/globalState.js'
 
 const dialogTextEditor = Dialog_bashEditor()
 const editor = ref(null)
+const editorLeft = ref(null)
+const editorLineCount = ref(2)
 
 onMounted(() => {
+    function lineCount(text) {
+        let num = (text.match(/\n/g) || []).length +1
+        if (!text.endsWith('\n')) num++
+        return num
+    }
+
     const highlight = (editor) => {
         let code = editor.textContent
         code = hljs.highlightAuto(code, ['javascript', 'python', 'bash']).value
@@ -21,11 +29,14 @@ onMounted(() => {
         })
 
         // 设置初始代码
-        jar.updateCode(dialogTextEditor.text)
+        let text = dialogTextEditor.text
+        editorLineCount.value = lineCount(text)
+        jar.updateCode(text)
 
         // 监听代码变化
         jar.onUpdate((code) => {
             dialogTextEditor.text = code
+            editorLineCount.value = lineCount(code)
         })
     }
 
@@ -54,16 +65,35 @@ onMounted(() => {
             content.style.cursor = 'default'
         }
     })
+
+    //行数滚动
+    content.addEventListener('scroll', function () {
+        // 设置第二个 div 的滚动位置为第一个 div 的滚动位置
+        editorLeft.value.scrollTop = content.scrollTop
+    })
 })
 </script>
 
 <template>
-    <div ref="editor" class="codejar-editor hljs"></div>
-
+    <div class="text-editor" style="display: flex">
+        <div ref="editorLeft" class="codejar-editor-left">
+            <div v-for="i in editorLineCount-1">{{ i }}</div>
+            <div style="display: inline-block"></div>
+        </div>
+        <div ref="editor" class="codejar-editor hljs" style="flex: 1"></div>
+    </div>
 </template>
 
 <style>
-.codejar-editor {
+.codejar-editor-left {
+    padding-top: 1px;
+    overflow: hidden;
+    margin-right: 1em;
+    min-width: 2em;
+    text-align: right;
+}
+
+.codejar-editor,.codejar-editor-left {
     --font-size: 15px;
 
     white-space: nowrap !important;

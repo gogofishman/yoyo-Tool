@@ -77,6 +77,7 @@ const dialogBashEditor = Dialog_bashEditor()
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding: 0 1em;
 
     & .info{
         font-family: user-font, sans-serif !important;

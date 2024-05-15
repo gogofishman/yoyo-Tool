@@ -5,7 +5,7 @@ import hljs from 'highlight.js'
 
 import { Dialog_bashEditor } from '@/js/globalState/globalState.js'
 
-const dialogTextEditor = Dialog_bashEditor()
+const dialogBashEditor = Dialog_bashEditor()
 const editor = ref(null)
 const editorLeft = ref(null)
 const editorLineCount = ref(2)
@@ -29,13 +29,24 @@ onMounted(() => {
         })
 
         // 设置初始代码
-        let text = dialogTextEditor.text
-        editorLineCount.value = lineCount(text)
-        jar.updateCode(text)
+        const content = ref(dialogBashEditor.text)
+        editorLineCount.value = lineCount(content.value)
+        jar.updateCode(content.value)
+
+        dialogBashEditor.$onAction(({name})=>{
+            if (name === 'close') {
+                // 每次关闭时重置代码
+                jar.updateCode(dialogBashEditor.text)
+            }
+            if (name === 'save') {
+                dialogBashEditor.text = content.value
+            }
+        })
 
         // 监听代码变化
         jar.onUpdate((code) => {
-            dialogTextEditor.text = code
+            console.log(code)
+            content.value = code
             editorLineCount.value = lineCount(code)
         })
     }

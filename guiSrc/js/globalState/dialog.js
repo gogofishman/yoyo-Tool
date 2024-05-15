@@ -62,7 +62,7 @@ export const Dialog_newPreset = defineStore('frontWindow_newPreset', {
     }
 })
 
-export const Dialog_bashEditor = defineStore('dialog_textEditor', {
+export const Dialog_bashEditor = defineStore('dialog_bashEditor', {
     state: () => ({
         show: false,
         text: '',

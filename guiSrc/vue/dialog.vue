@@ -1,6 +1,6 @@
 <script setup>
 import { Dialog_fileImport, Dialog_newPreset, Dialog_bashEditor } from '@/js/globalState/globalState.js'
-import textEditor from '@/vue/control/textEditor.vue'
+import TextEditor from '@/vue/control/textEditor.vue'
 
 const dialogFileImport = Dialog_fileImport()
 const dialogNewPreset = Dialog_newPreset()
@@ -57,6 +57,7 @@ const dialogBashEditor = Dialog_bashEditor()
                :show-close="false"
                :close-on-click-modal="false"
                :close-on-press-escape="false"
+               :destroy-on-close="true"
                style="border-radius: 6px;">
         <template #footer>
             <div class="dialog-footer">
@@ -67,7 +68,7 @@ const dialogBashEditor = Dialog_bashEditor()
                 </div>
             </div>
         </template>
-        <text-editor></text-editor>
+        <text-editor :variable="dialogBashEditor"></text-editor>
     </el-dialog>
 
 </template>

@@ -3,60 +3,50 @@ import { onMounted, ref } from 'vue'
 import { CodeJar } from 'codejar'
 import hljs from 'highlight.js'
 
-import { Dialog_bashEditor } from '@/js/globalState/globalState.js'
+const props = defineProps({
+    variable: Object
+})
 
-const dialogBashEditor = Dialog_bashEditor()
+const dialogEditor = props.variable
 const editor = ref(null)
 const editorLeft = ref(null)
 const editorLineCount = ref(2)
 
+function lineCount (text) {
+    let num = (text.match(/\n/g) || []).length + 1
+    if (!text.endsWith('\n')) num++
+    return num
+}
+
+const highlight = (editor) => {
+    let code = editor.textContent
+    code = hljs.highlightAuto(code, ['javascript', 'python', 'bash']).value
+    editor.innerHTML = code
+}
+
+function hasVerticalScrollbar (element) {
+    return element.scrollHeight > element.clientHeight
+}
+
+function hasHorizontalScrollbar (element) {
+    return element.scrollWidth > element.clientWidth
+}
+
 onMounted(() => {
-    function lineCount(text) {
-        let num = (text.match(/\n/g) || []).length +1
-        if (!text.endsWith('\n')) num++
-        return num
-    }
-
-    const highlight = (editor) => {
-        let code = editor.textContent
-        code = hljs.highlightAuto(code, ['javascript', 'python', 'bash']).value
-        editor.innerHTML = code
-    }
-
     if (editor.value) {
         const jar = CodeJar(editor.value, highlight, {
             tab: ' '.repeat(4),
         })
 
         // 设置初始代码
-        const content = ref(dialogBashEditor.text)
-        editorLineCount.value = lineCount(content.value)
-        jar.updateCode(content.value)
-
-        dialogBashEditor.$onAction(({name})=>{
-            if (name === 'close') {
-                // 每次关闭时重置代码
-                jar.updateCode(dialogBashEditor.text)
-            }
-            if (name === 'save') {
-                dialogBashEditor.text = content.value
-            }
-        })
+        editorLineCount.value = lineCount(dialogEditor.text)
+        jar.updateCode(dialogEditor.text)
 
         // 监听代码变化
         jar.onUpdate((code) => {
-            console.log(code)
-            content.value = code
+            dialogEditor.text = code
             editorLineCount.value = lineCount(code)
         })
-    }
-
-    function hasVerticalScrollbar (element) {
-        return element.scrollHeight > element.clientHeight
-    }
-
-    function hasHorizontalScrollbar (element) {
-        return element.scrollWidth > element.clientWidth
     }
 
     // 在滚动条上不改变鼠标样式
@@ -104,7 +94,7 @@ onMounted(() => {
     text-align: right;
 }
 
-.codejar-editor,.codejar-editor-left {
+.codejar-editor, .codejar-editor-left {
     --font-size: 15px;
 
     white-space: nowrap !important;

@@ -64,4 +64,18 @@ ws.onInvoke('showOpenDialog', async (message, client) => {
     }
 })
 
+//获取app信息
+ws.onInvoke('getAppInfo', (message, client) => {
+    let data = {
+        appDir:Helper.path.appDir.str,
+        dataDir:Helper.path.dataDir.str,
+        version: yoyoNode.app.getVersion(),
+        sessionDataDir: Helper.path.sessionDataDir.str,
+        tempDir: Helper.path.tempDir.str,
+        systemLocale: yoyoNode.app.getSystemLocale()
+    }
+
+    client.end(data)
+})
+
 module.exports = ws

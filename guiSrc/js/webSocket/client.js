@@ -1,4 +1,5 @@
 import { SystemMessage, SendMessage, InvokeMessage, InvokeRespondMessage } from './message.js'
+import getAppInfo from '@/js/getAppInfo.js'
 
 class invokeHandle {
     /** @type {function(InvokeRespondMessage)} */
@@ -59,6 +60,7 @@ class WsClient {
             let message = new SystemMessage('clientInit', this.#clientName, this.#clientName)
             this.#socket.send(message.jsonText)
             console.log(`已连接到后端服务器 "ws://localhost:${port}"`)
+            getAppInfo()
         }
         this.#socket.onmessage = (event) => {
             try {

@@ -8,20 +8,28 @@ import {
 } from '@/js/globalState/globalState.js'
 import Tooltip from '@/vue/control/tooltip.vue'
 import ControlLine from '@/vue/control/controlLine.vue'
+import { onBeforeMount } from 'vue'
 
-const open = ['output', 'video_encode', 'audio_encode', 'others']
 const dialogBashEditor = Dialog_bashEditor()
 const setting = Settings()
 const encodeParameter = EncodeParameter()
+encodeParameter.$subscribe((mutation, state) => {
+    if (mutation.events.key === 'bash') return
+    if (mutation.events.key.startsWith('_')) return
+    state.bash = encodeParameter.getArgs
+})
 const encodePreset = EncodePreset()
-encodePreset.selectPreset()
-
 const dialogNewPreset = Dialog_newPreset()
+
+onBeforeMount(()=>{
+    //开启app时永远折叠预设
+    encodeParameter._open = encodeParameter._open.filter(item => item !== 'preset')
+})
 </script>
 
 <template>
 
-    <el-collapse class="parameter-editor-collapse" v-model="open">
+    <el-collapse class="parameter-editor-collapse" v-model="encodeParameter._open">
         <el-scrollbar always="always">
             <!--            预设-->
             <el-collapse-item :title="$i18n('preset',true,true)" name="preset">
@@ -79,6 +87,13 @@ const dialogNewPreset = Dialog_newPreset()
 
             <!--            视频编码-->
             <el-collapse-item :title="$i18n('video_encode',true,true)" name="video_encode">
+                <!--                gpu-->
+                <control-line :label="$i18n('encode_core')">
+                    <el-radio-group v-model="encodeParameter.core" size="small" style="width: 100%">
+                        <el-radio-button v-for="item in encodeParameter.coreList" :label="item" :value="item"/>
+                    </el-radio-group>
+                </control-line>
+
                 <!--                文件格式-->
                 <control-line :label="$i18n('file_format')">
                     <el-select v-model="encodeParameter.file_format" size="small" style="width: var(--select-width)"
@@ -95,13 +110,6 @@ const dialogNewPreset = Dialog_newPreset()
                     </el-select>
                 </control-line>
 
-
-                <!--                位深度-->
-                <control-line :label="$i18n('depth')">
-                    <el-radio-group v-model="encodeParameter.depth" size="small" style="width: 100%">
-                        <el-radio-button v-for="item in encodeParameter.depthList" :label="item" :value="item"/>
-                    </el-radio-group>
-                </control-line>
                 <!-- 质量-->
                 <control-line :label="$i18n('quality')">
                     <el-input-number
@@ -115,10 +123,21 @@ const dialogNewPreset = Dialog_newPreset()
 
                 <!--高级-->
                 <control-line :label="$i18n('advanced')">
-                    <el-switch v-model="encodeParameter.More"></el-switch>
+                    <el-switch v-model="encodeParameter._more"></el-switch>
                 </control-line>
 
-                <control-line v-if="encodeParameter.More" label="lookahead" :tooltip="$i18n('lookahead_tooltip')">
+                <!--                位深度-->
+                <control-line v-if="encodeParameter._more" :label="$i18n('depth')">
+                    <el-radio-group v-model="encodeParameter.depth" size="small" style="width: 100%">
+                        <el-radio-button v-for="item in encodeParameter.depthList" :label="item" :value="item"/>
+                    </el-radio-group>
+                </control-line>
+                <control-line v-if="encodeParameter._more" :label="$i18n('color_space')">
+                    <el-radio-group v-model="encodeParameter.color_space" size="small" style="width: 100%">
+                        <el-radio-button v-for="item in encodeParameter.colorSpaceList" :label="item" :value="item"/>
+                    </el-radio-group>
+                </control-line>
+                <control-line v-if="encodeParameter._more" label="lookahead" :tooltip="$i18n('lookahead_tooltip')">
                     <el-input-number
                         v-model="encodeParameter.lookahead"
                         :min="0"
@@ -126,30 +145,25 @@ const dialogNewPreset = Dialog_newPreset()
                         size="small"
                     />
                 </control-line>
-                <control-line v-if="encodeParameter.More" label="aq" :tooltip="$i18n('aq_tooltip')">
+                <control-line v-if="encodeParameter._more" label="aq" :tooltip="$i18n('aq_tooltip')">
                     <el-input-number
                         v-model="encodeParameter.aq"
-                        :min="0"
+                        :min="-1"
                         :max="15"
                         size="small"
                     />
                 </control-line>
-                <control-line v-if="encodeParameter.More" label="gop" :tooltip="$i18n('gop_tooltip')">
+                <control-line v-if="encodeParameter._more" label="gop" :tooltip="$i18n('gop_tooltip')">
                     <el-input-number
                         v-model="encodeParameter.gop"
                         :min="-1"
                         size="small"
                     />
                 </control-line>
-                <control-line v-if="encodeParameter.More" :label="$i18n('color_space')">
-                    <el-radio-group v-model="encodeParameter.color_space" size="small" style="width: 100%">
-                        <el-radio-button v-for="item in encodeParameter.colorSpaceList" :label="item" :value="item"/>
-                    </el-radio-group>
-                </control-line>
-                <control-line v-if="encodeParameter.More" :label="$i18n('lossless')">
+                <control-line v-if="encodeParameter._more&&encodeParameter.codec!=='av1'" :label="$i18n('lossless')">
                     <el-switch v-model="encodeParameter.lossless"></el-switch>
                 </control-line>
-                <control-line v-if="encodeParameter.More" label="vfr" :tooltip="$i18n('vfr_tooltip')">
+                <control-line v-if="encodeParameter._more" label="vfr" :tooltip="$i18n('vfr_tooltip')">
                     <el-switch v-model="encodeParameter.vfr"></el-switch>
                 </control-line>
 
@@ -242,8 +256,8 @@ const dialogNewPreset = Dialog_newPreset()
                 <!--                编辑参数-->
                 <control-line>
                     <el-button type="primary" size="small" plain
-                               @click="dialogBashEditor.open(encodeParameter.bash.join('\n'),
-                               (text)=>encodeParameter.bash=text.split('\n'))">
+                               @click="dialogBashEditor.open(encodeParameter.getBashText,
+                               (text)=>encodeParameter.bash=text.split(/\s+/))">
                         {{ $i18n('edit_parameters') }}
                     </el-button>
                 </control-line>

@@ -256,8 +256,8 @@ export default {
         'zh-cn': '文件格式'
     },
     codec:{
-        'en': 'codec',
-        'zh-cn': '编码器'
+        'en': 'encode',
+        'zh-cn': '编码'
     },
     quality:{
         'en': 'quality',
@@ -276,8 +276,8 @@ export default {
         'zh-cn': '使用 lookahead 并指定其目标范围的帧数。 (0 - 32)<br>对于提高画面质量很有效，允许自适应插入 I 帧和 B帧'
     },
     aq_tooltip:{
-        'en': 'Adaptive Quantization (1-15 for increasing enhancement, 0 for automatic)',
-        'zh-cn': '自适应量化 （1-15依次增强，0为自动）'
+        'en': 'Adaptive Quantization (1-15 for increasing enhancement, 0 for automatic, -1 to disable).',
+        'zh-cn': '自适应量化 （1-15依次增强，0为自动，-1关闭）'
     },
     gop_tooltip:{
         'en': 'Keyframe interval, unit (frames). <br>-1 for automatic.',
@@ -368,7 +368,11 @@ export default {
         'zh-cn': '编辑参数'
     },
     bash_editor_info:{
-        'en': 'One parameter per line',
-        'zh-cn': '一行一个参数'
+        'en': 'The control will not change due to this text modification; the final output value is based on the text',
+        'zh-cn': '控件不会因为该文本修改而发生变化，最终输出值以文本为准'
+    },
+    encode_core:{
+        'en': 'processor',
+        'zh-cn': '处理器'
     }
 }

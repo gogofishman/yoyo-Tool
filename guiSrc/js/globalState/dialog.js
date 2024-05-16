@@ -62,24 +62,24 @@ export const Dialog_newPreset = defineStore('frontWindow_newPreset', {
     }
 })
 
+let bashFunc = null
 export const Dialog_bashEditor = defineStore('dialog_bashEditor', {
     state: () => ({
         show: false,
         text: '',
-        func: null
     }),
     actions: {
-        open (text, saveFunc) {
+        open (text, func) {
             this.text = text
+            bashFunc = func
             this.show = true
-            this.func = saveFunc
         },
         close () {
             this.show = false
         },
         save () {
             this.close()
-            this.func(this.text)
+            bashFunc(this.text)
         }
     }
 })
